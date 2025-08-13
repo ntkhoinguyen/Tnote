@@ -20,7 +20,8 @@
     },
     "icon": "./assets/images/icon.png",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.khoinguyen2901.tnote"
     },
     "name": "Tnote",
     "newArchEnabled": true,
@@ -46,6 +47,12 @@
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png",
       "output": "static"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/090e8811-a685-4add-b7fd-6d219ab6378e"
     }
   }
 }

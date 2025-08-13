@@ -6,13 +6,22 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "development"
+      },
+      "channel": "devchannel"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_VARIANT": "preview"
+      },
+      "channel": "prvchannel"
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "channel": "prochannel"
     }
   },
   "submit": {
