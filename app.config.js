@@ -28,6 +28,7 @@ const getAppName = () => {
 export default ({ config }) => ({
   ...config,
   name: getAppName(),
+  runtimeVersion: "1.0.2",
   ios: {
     ...config.ios,
     buildNumber: "1",
