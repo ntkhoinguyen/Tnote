@@ -60,8 +60,10 @@ const defaultColors = {
   iconColor: colors.dark,
   iconPopupColor: colors.white,
   inputTextColor: "#000000",
+  internetWarning: colors.light,
   kanbanGroupName: colors.light,
   kanbanItem: colors.white,
+  geminiBackground: colors.light,
   label: "#000000",
   placeHolderText: colors.light_gray,
   primary: "#0099FF",
@@ -74,6 +76,7 @@ const defaultColors = {
   tagsHeaderText: colors.dark,
   tagsGroup: colors.light_blue,
   text: "#000000",
+  userAskBackground: colors.light_blue,
   warning: "#ffff00",
 };
 
@@ -93,9 +96,11 @@ const darkColors = {
   headerColor: colors.black,
   iconColor: colors.white,
   iconPopupColor: colors.dark_black,
+  internetWarning: colors.dark,
   inputTextColor: colors.light_gray,
   kanbanGroupName: colors.gray,
   kanbanItem: colors.dark,
+  geminiBackground: colors.dark_gray,
   label: colors.white,
   placeHolderText: colors.gray,
   primary: "#0099FF",
@@ -108,6 +113,7 @@ const darkColors = {
   tagsHeaderText: colors.white,
   tagsGroup: colors.light_black,
   text: "#f7f7f7",
+  userAskBackground: colors.dark_black,
   warning: "#ffff00",
 };
 

@@ -49,19 +49,19 @@ const CreateAccountScreen = () => {
 
   const validateEmail = (text: string): string | undefined => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(text) ? undefined : "Email không hợp lệ";
+    return emailRegex.test(text) ? undefined : t("emailValidate");
   };
 
   const validateUsername = (text: string): string | undefined => {
-    return text.length < 4 ? "Username phải trên 4 ký tự" : undefined;
+    return text.length < 4 ? t("userName4Charater") : undefined;
   };
 
   const validatePassword = (text: string): string | undefined => {
-    return text.length < 6 ? "Mật khẩu tối thiểu 6 ký tự" : undefined;
+    return text.length < 6 ? t("password6Charater") : undefined;
   };
 
   const validateSecurity = (text: string): string | undefined => {
-    return text.length < 1 ? "Mật khẩu tối thiểu 1 ký tự" : undefined;
+    return text.length < 1 ? t("securityCode1Charater") : undefined;
   };
 
   const handleSubmit = async () => {
@@ -75,7 +75,7 @@ const CreateAccountScreen = () => {
         open(); // open loading component for setting data.
         const isValidateEmail = await checkValidateEmail(email);
         if (isValidateEmail) {
-          Alert.alert("Thống báo", "Email này đã được sử dụng");
+          Alert.alert(t("emailUsed"));
           close();
           return;
         }
@@ -91,16 +91,16 @@ const CreateAccountScreen = () => {
           }, 500);
         } else {
           close();
-          Alert.alert("Lỗi", "Không thể lưu dữ liệu");
+          Alert.alert(t("cannotSaveData"));
         }
       } catch (e) {
         console.log("[CreateAccount] --> handleSubmit error", e);
         close();
-        Alert.alert("Lỗi", "Không thể lưu dữ liệu");
+        Alert.alert(t("cannotSaveData"));
       }
       close();
     } else {
-      Alert.alert("Lưu ý", "Chưa nhập đúng dữ liệu");
+      Alert.alert(t("dataIsWrong"));
     }
   };
 
@@ -171,9 +171,7 @@ const CreateAccountScreen = () => {
 
         {/* Nút quay về login */}
         <TouchableOpacity onPress={handleGoback}>
-          <Text style={styles.backToLogin}>
-            Đã có tài khoản? Quay lại đăng nhập
-          </Text>
+          <Text style={styles.backToLogin}>{t("backToLogin")}</Text>
         </TouchableOpacity>
       </View>
       <LoadingComponent />

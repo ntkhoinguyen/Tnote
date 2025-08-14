@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
-import { HeaderMain } from "./header";
+import { HeaderMain } from "@/app/screens/header/header";
 import { useAppContext } from "@/src/useHook/useAppContext";
 
 export default function MainScreens() {

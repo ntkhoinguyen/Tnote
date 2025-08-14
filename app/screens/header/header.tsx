@@ -39,3 +39,5 @@ const createStyles = (colors: typeof lightColors, size: typeof sizes) =>
       color: colors.white,
     },
   });
+
+  export default HeaderMain;

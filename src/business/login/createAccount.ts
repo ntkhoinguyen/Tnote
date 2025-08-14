@@ -20,6 +20,46 @@ export const checkHaveEmail = (): Promise<boolean | string> => {
   });
 };
 
+export const getUserInfo = async (email: string, securityCode: string) => {
+  try {
+    const nameEmail = email.split("@")[0];
+    const result = await SecureStore.getItemAsync(nameEmail);
+    if (result) {
+      const security = await SecureStore.getItemAsync("securityCode");
+      const user = await SecureStore.getItemAsync(`loginByAccount${nameEmail}`);
+      if (!user) return null;
+      const userInfo = JSON.parse(user);
+      if (security === securityCode) {
+        return userInfo;
+      } else {
+        let username = "";
+        let password = "";
+        for (let i = 0; i < userInfo.username.length; i++) {
+          if (i >= userInfo.username.length / 2) {
+            username += "*";
+          } else {
+            username += userInfo.username[i];
+          }
+        }
+        for (let i = 0; i < userInfo.password.length; i++) {
+          if (i >= userInfo.password.length / 2) {
+            password += "*";
+          } else {
+            password += userInfo.password[i];
+          }
+        }
+        userInfo.username = username;
+        userInfo.password = password;
+        return userInfo;
+      }
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log("[getUserInfo][Business] ------", error);
+  }
+};
+
 export const checkValidateEmail = (email: string): Promise<boolean> => {
   return new Promise(async (resolve, reject) => {
     try {

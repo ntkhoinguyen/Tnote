@@ -246,7 +246,10 @@ const SettingsScreen: React.FC = () => {
         {/* cover image */}
         <View style={styles.quoteContainer}>
           {user.coverBackground !== "" ? (
-            <TouchableOpacity style={styles.coverPhoto} onPress={onOpenCoverbackground}>
+            <TouchableOpacity
+              style={styles.coverPhoto}
+              onPress={onOpenCoverbackground}
+            >
               <Image
                 source={{ uri: user.coverBackground }}
                 style={styles.coverPhoto}
@@ -466,7 +469,8 @@ const SettingsScreen: React.FC = () => {
 
         {/* logout */}
         <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Text style={styles.logoutText}>{`>> ${t("logOut")}`}</Text>
+          <Text style={styles.logoutText}>{t("logOut")}</Text>
+          <MaterialIconsIcon name="logout" size={24} color={colors.red} />
         </TouchableOpacity>
 
         {RenderModal()}
@@ -603,6 +607,9 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       paddingHorizontal: size.padding.xxl,
       marginVertical: size.margin.xl,
       alignSelf: "flex-end",
+      flexDirection: "row",
+      alignItems: "center",
+      gap: size.margin.sm,
     },
     logoutText: {
       fontWeight: size.fontWeight.bold as "bold",

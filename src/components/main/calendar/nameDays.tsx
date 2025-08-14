@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {  useMemo } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 
 import { useAppContext } from "@/src/useHook/useAppContext";
@@ -7,7 +7,7 @@ import { sizes } from "@/src/themes/sizes";
 import { calendarNameDays } from "@/src/utils/types";
 import { calendarHeaderHeight, DAYS } from "@/src/utils/utils";
 
-export const CalendarNameDays = (props: calendarNameDays) => {
+export const CalendarNameDaysMemo = (props: calendarNameDays) => {
   const { calendarModes } = props;
   const { colors, sizes, t } = useAppContext();
   const styles = useMemo(() => createStyles(colors, sizes), [colors, sizes]);
@@ -38,6 +38,15 @@ export const CalendarNameDays = (props: calendarNameDays) => {
       })}
     </Animated.View>
   );
+};
+
+export const CalendarNameDays = (props: calendarNameDays) => {
+  const { calendarModes } = props;
+  const CalendarNameDaysMm = useMemo(() => {
+    return <CalendarNameDaysMemo {...props} />;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calendarModes.week.width]);
+  return CalendarNameDaysMm;
 };
 
 const createStyles = (colors: typeof defaultColors, size: typeof sizes) => {

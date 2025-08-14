@@ -8,6 +8,7 @@ import { useAppContext } from "@/src/useHook/useAppContext";
 import { defaultColors } from "@/src/themes/colors";
 import { sizes } from "@/src/themes/sizes";
 import { IoniconsIcon } from "@/src/components/icon";
+import { useNotification } from "@/src/useHook/useNotification";
 
 import { Kanban } from "@/src/components/main/kanban/kanban";
 import { Calendar } from "@/src/components/main/calendar/calendar";
@@ -36,6 +37,8 @@ export default function HomeScreen() {
   const [groups, setGroups] = React.useState<GroupType[]>([]);
   const [tags, setTags] = React.useState<TagType[]>([]);
 
+  const { setMounted } = useNotification();
+
   const isReloadScreen = useSelector(
     (state: stateReducerType) =>
       state.updateDetail.screenUpdate[screenReload.homeScreen]
@@ -47,10 +50,12 @@ export default function HomeScreen() {
     setGroups(groups);
     setTags(tags);
     setIsMount(false);
+    setMounted(true);
   };
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -166,7 +171,7 @@ const SearchBar = (props: SearchBarType) => {
 
 const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
   StyleSheet.create({
-    container: { flex: 1},
+    container: { flex: 1 },
     searchRow: {
       flexDirection: "row",
       alignItems: "center",

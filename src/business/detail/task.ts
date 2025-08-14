@@ -40,7 +40,7 @@ export const insertTask = async (task: TaskType): Promise<boolean | number> => {
       const newTask: any = { ...task };
       newTask.content = await encryptedData(newTask.content);
       newTask.tagsId = JSON.stringify(newTask.tagsId);
-      const uri = await movePhotoToAttachments(newTask.image, false);
+      const uri = newTask.image ? await movePhotoToAttachments(newTask.image, false) : newTask.image;
       newTask.image = uri;
       let attachments: string[] = [];
       for (let i = 0; i < newTask.attachments.length; i++) {

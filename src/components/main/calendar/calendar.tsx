@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Text, StyleSheet, Animated, LayoutChangeEvent } from "react-native";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -198,10 +205,6 @@ export const Calendar = (props: calendarType) => {
     setMode(mode);
   };
 
-  const onPressCreate = () => {
-    router.push(`/screens/details/task?id=0?from=${screenReloadTask.calendar}`);
-  };
-
   return (
     <Animated.View style={styles.container} onLayout={onLayoutContainer}>
       {/* month, year and button today */}
@@ -238,10 +241,25 @@ export const Calendar = (props: calendarType) => {
           onChanegeDate={setSelectedDate}
         />
       ) : null}
-      <ButtonCreate onPress={onPressCreate} />
+      <ButtonCreateMemo />
     </Animated.View>
   );
 };
+
+const ButtonCreateMemo = memo(
+  () => {
+    const router = useRouter();
+    const onPressCreate = () => {
+      router.push(
+        `/screens/details/task?id=0?from=${screenReloadTask.calendar}`
+      );
+    };
+    return <ButtonCreate onPress={onPressCreate} />;
+  },
+  () => true
+);
+
+ButtonCreateMemo.displayName = "ButtonCreateMemo";
 
 const createStyles = (colors: typeof defaultColors, size: typeof sizes) => {
   return StyleSheet.create({

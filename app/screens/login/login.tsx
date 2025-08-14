@@ -25,6 +25,10 @@ const LoginScreen = () => {
     router.push("/screens/login/createAccount");
   };
 
+  const onForgetPassword = () => {
+    router.push("/screens/login/forgetPassword");
+  };
+
   const handleLogin = async () => {
     try {
       const result = await checkLoginByAccount(username, password);
@@ -83,7 +87,10 @@ const LoginScreen = () => {
 
         <View style={styles.linksContainer}>
           <TouchableOpacity onPress={onCreateNewAccount}>
-            <Text style={styles.link}>create new</Text>
+            <Text style={styles.link}>{t("createAccount")}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onForgetPassword}>
+            <Text style={styles.forget}>{t("forgetPassword")}</Text>
           </TouchableOpacity>
         </View>
 
@@ -92,6 +99,7 @@ const LoginScreen = () => {
           type="fill"
           color={colors.primary}
           onPress={handleLogin}
+          containerStyle={{ marginTop: sizes.margin.xxl * 2 }}
         />
       </View>
 
@@ -104,7 +112,6 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingBottom: size.heightHeader, // as footer height
       backgroundColor: colors.background,
     },
     content: {
@@ -123,15 +130,22 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       flexDirection: "row",
       width: "100%",
       marginTop: size.margin.sm,
+      justifyContent: "space-between",
     },
     link: {
       color: colors.primary,
       fontSize: size.fontSize.md,
       marginVertical: size.margin.sm,
     },
+    forget: {
+      color: colors.teal,
+      fontSize: size.fontSize.md,
+      marginVertical: size.margin.sm,
+    },
     versionText: {
       color: colors.light_gray,
       alignSelf: "center",
+      marginBottom: size.margin.xl,
     },
   });
 

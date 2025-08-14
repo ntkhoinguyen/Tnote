@@ -358,13 +358,18 @@ export const mapTasksToDates = (
 
   // Duyệt từng task và đưa vào đúng ngày
   tasks.forEach((task) => {
-    const rawDate = task.endDate?.trim() !== "" ? task.endDate : task.startDate;
-    if (!rawDate) return;
-
-    const formattedDate = moment(rawDate, "DD/MM/YYYY").format("YYYY-MM-DD");
-
-    if (result[formattedDate]) {
-      result[formattedDate].push(task);
+    const startDate =
+      task.startDate?.trim() !== "" ? task.startDate : task.endDate;
+    let endDate = task.endDate?.trim() !== "" ? task.endDate : task.startDate;
+    if (!endDate) endDate = startDate;
+    for(let i = 0; ; i++) {
+        const formattedDate = moment(startDate, "DD/MM/YYYY").add(i, "day").format("YYYY-MM-DD");
+        if (result[formattedDate]) {
+          result[formattedDate].push(task);
+        }
+        if (moment(formattedDate, "YYYY-MM-DD").format("DD/MM/YYYY") === moment(endDate, "DD/MM/YYYY").format("DD/MM/YYYY")) {
+            break;
+        }
     }
   });
 
