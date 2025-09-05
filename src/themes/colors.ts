@@ -51,7 +51,6 @@ const defaultColors = {
   ...colors,
   background: "#ffffff",
   backgroundLoading: colors.white,
-  backgroundMode: "#ffffff",
   backgroundModal: colors.white,
   backgroundPopup: colors.light,
   border: "#c0c0c0",
@@ -86,10 +85,10 @@ const lightColors = {
 
 const darkColors = {
   ...colors,
+  // background: "#272924",
   background: "#000000",
   backgroundLoading: colors.gray,
   backgroundModal: colors.dark_black,
-  backgroundMode: "#000000",
   backgroundPopup: colors.dark_black,
   border: "#c0c0c0",
   error: "#ff0000",

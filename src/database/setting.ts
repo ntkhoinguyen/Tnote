@@ -67,7 +67,7 @@ export const initDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
       database = db; // Store the database instance for reuse
       return resolve(db);
     } catch (error) {
-      console.error("[initDatabase][ERROR] ------", error);
+      console.log("[initDatabase][ERROR] ------", error);
       return reject(false);
     }
   });

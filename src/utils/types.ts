@@ -529,3 +529,9 @@ export type eventType = {
   maxEventCount: number;
   eventWidth: number;
 };
+
+// ----------------------------- Components ----------------------
+
+export type AppLogoType = {
+  isEffect?: boolean;
+};

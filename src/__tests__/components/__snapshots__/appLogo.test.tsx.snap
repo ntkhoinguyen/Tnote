@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AppLogo Component snapshot testing for AppLogo 1`] = `
+<Image
+  resizeMode="contain"
+  source={
+    {
+      "testUri": "../../../assets/images/logo.png",
+    }
+  }
+  style={
+    [
+      {
+        "height": 100,
+        "width": 100,
+      },
+      {
+        "opacity": 1,
+      },
+    ]
+  }
+  testID="imgAppLogo"
+/>
+`;

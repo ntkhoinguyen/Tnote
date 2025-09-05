@@ -1,18 +1,13 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  Easing,
-  withRepeat,
-  withTiming,
-} from "react-native-reanimated";
 import * as SplashScreen from "expo-splash-screen";
 import { useRouter } from "expo-router";
 
 import { useAppContext } from "@/src/useHook/useAppContext";
 import { defaultColors } from "@/src/themes/colors";
 import { sizes } from "@/src/themes/sizes";
+import { AppLogo } from "@/src/components/appLogo";
+
 import { initDatabase } from "@/src/database/setting";
 
 const SplashCustom: React.FC = () => {
@@ -21,19 +16,14 @@ const SplashCustom: React.FC = () => {
 
   const router = useRouter();
 
-  const [isReady, setIsReady] = React.useState<string>("waiting");
-  const opacity = useSharedValue(0.3);
+  const [isReady, setIsReady] = useState<string>("waiting");
 
   useEffect(() => {
     const tryHideSplash = async () => {
       try {
         await SplashScreen.hideAsync();
         const result = await initDatabase();
-        if (result) {
-          setIsReady("ready");
-        } else {
-          setIsReady("error");
-        }
+        setIsReady(result ? "ready" : "error");
       } catch (e) {
         console.log("[SplashCustom][tryHideSplash][ERROR] ----", e);
         setIsReady("error");
@@ -50,29 +40,9 @@ const SplashCustom: React.FC = () => {
     }
   }, [isReady, router]);
 
-  useEffect(() => {
-    // Thực hiện hiệu ứng nhấp nháy với withRepeat
-    opacity.value = withRepeat(
-      withTiming(1, { duration: 1000, easing: Easing.ease }), // Tăng sáng
-      -1, // Lặp lại vô hạn
-      true // Lặp lại từ 1 sang 0 (từ sáng đến tối)
-    );
-  }, [opacity]);
-
-  const aniStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-    };
-  });
-
   return (
-    <View
-      style={[styles.container, { backgroundColor: colors.backgroundMode }]}
-    >
-      <Animated.Image
-        source={require("@/assets/images/logo.png")}
-        style={[styles.logo, aniStyle]}
-      />
+    <View style={styles.container}>
+      <AppLogo isEffect={true} />
       {isReady === "error" && (
         <Text style={styles.textError}>{t("errorStartApp")}</Text>
       )}
@@ -86,10 +56,7 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) => {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-    },
-    logo: {
-      width: size.appLogoWidth,
-      height: size.appLogoHeight,
+      backgroundColor: colors.background,
     },
     textError: {
       color: colors.error,
