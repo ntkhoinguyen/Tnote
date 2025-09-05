@@ -1,6 +1,6 @@
 // LoginScreen.tsx
 import React, { useCallback, useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { useFocusEffect, useRouter } from "expo-router";
 
 import { AppLogo } from "@/src/components/appLogo";
@@ -35,11 +35,11 @@ const LoginScreen = () => {
       if (result) {
         router.replace("/screens/login/loading");
       } else {
-        setError("Sai tài khoản");
+        setError(t("wrongAccount"));
       }
     } catch (e) {
       console.log("[handleLogin][login] ----> ", e);
-      Alert.alert("Lỗi", "Không thể truy cập dữ liệu");
+      Alert.alert(t("errorCannotGetData"));
     }
   };
 
@@ -86,12 +86,19 @@ const LoginScreen = () => {
         />
 
         <View style={styles.linksContainer}>
-          <TouchableOpacity onPress={onCreateNewAccount}>
-            <Text style={styles.link}>{t("createAccount")}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onForgetPassword}>
-            <Text style={styles.forget}>{t("forgetPassword")}</Text>
-          </TouchableOpacity>
+          <ButtonField
+            text={t("createAccount")}
+            type="text"
+            color={colors.primary}
+            onPress={onCreateNewAccount}
+          />
+          <ButtonField
+            text={t("forgetPassword")}
+            type="text"
+            color={colors.teal}
+            onPress={onForgetPassword}
+            containerStyle={{ opacity: 0.7 }}
+          />
         </View>
 
         <ButtonField
@@ -99,7 +106,11 @@ const LoginScreen = () => {
           type="fill"
           color={colors.primary}
           onPress={handleLogin}
-          containerStyle={{ marginTop: sizes.margin.xxl * 2 }}
+          containerStyle={{
+            marginTop: sizes.margin.xxl * 2,
+            width: "100%",
+            paddingVertical: sizes.padding.sm,
+          }}
         />
       </View>
 
@@ -131,16 +142,6 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       width: "100%",
       marginTop: size.margin.sm,
       justifyContent: "space-between",
-    },
-    link: {
-      color: colors.primary,
-      fontSize: size.fontSize.md,
-      marginVertical: size.margin.sm,
-    },
-    forget: {
-      color: colors.teal,
-      fontSize: size.fontSize.md,
-      marginVertical: size.margin.sm,
     },
     versionText: {
       color: colors.light_gray,

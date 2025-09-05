@@ -63,7 +63,7 @@ export type IconType = {
 export type ButtonFieldType = {
   text?: string;
   containerStyle?: object;
-  type: "fill" | "outline";
+  type: "fill" | "outline" | "text";
   color?: string;
   disabled?: boolean;
   LeftSection?: React.ComponentType<any>;

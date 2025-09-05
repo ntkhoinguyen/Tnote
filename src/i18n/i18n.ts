@@ -42,6 +42,7 @@ const en = {
   enterSecurityCode: "Enter security code",
   enterTitle: "Enter title",
   enterUsername: "Enter username",
+  errorCannotGetData: "Error getting data",
   errorSaveBirthday: "Error saving birthday",
   errorSaveUsername: "Error saving username",
   errorSavePassword: "Error saving password",
@@ -93,6 +94,7 @@ const en = {
   username: "Username",
   userName4Charater: "Username must be at least 4 characters",
   whatDoYouWantToKnow: "What do you want to know?",
+  wrongAccount: "Wrong account",
   //--------------
   Hai: "Mon",
   Ba: "Tue",
@@ -144,6 +146,7 @@ const vi = {
   enterPriority: "Nhập độ ưu tiên",
   enterSecurityCode: "Nhập mã bảo mật",
   enterUsername: "Nhập tên tài khoản",
+  errorCannotGetData: "Lỗi! Không thể lấy dữ liệu",
   errorSaveBirthday: "Lỗi! Không thể lưu ngày sinh",
   errorSaveUsername: "Lỗi! Không thể lưu tên người dùng",
   errorSavePassword: "Lỗi! Không thể lưu mật khảu",
@@ -195,6 +198,7 @@ const vi = {
   username: "Tên đăng nhập",
   userName4Charater: "Tên người dùng phải nhất 4 ki tỷ",
   whatDoYouWantToKnow: "Bạn muốn biết gì nào ?",
+  wrongAccount: "Sai tài khoản",
   //---------
   Hai: "Hai",
   Ba: "Ba",

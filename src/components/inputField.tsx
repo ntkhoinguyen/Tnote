@@ -30,11 +30,11 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
     placeholder = "",
     editable = true,
     multiline = false,
-    RightSection,
-    LeftSection,
     containerStyle = {},
     inputStyle = {},
     labelStyle = {},
+    RightSection,
+    LeftSection,
     validator,
     onChangeText,
     onFocus,
@@ -50,11 +50,17 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
   const [error, setError] = useState<string | undefined>(errorText);
   const [inputHeight, setInputHeight] = useState<number | undefined>(undefined);
   const [isFocus, setIsFocus] = useState<boolean>(false);
+  const [textValue, setTextValue] = useState<string>(value);
 
   const inputRefEdit = useRef<any>(null);
+  const timerChangeText = useRef<number | null>(null);
 
   const handleChange = (text: string) => {
-    onChangeText?.(text);
+    if (timerChangeText.current) clearTimeout(timerChangeText.current);
+    timerChangeText.current = setTimeout(() => {
+      onChangeText?.(text);
+    }, 2000);
+    setTextValue(text);
   };
 
   const onBlurInput = () => {
@@ -93,6 +99,10 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
     setError(errorText);
   }, [errorText]);
 
+  useEffect(() => {
+    setTextValue(value);
+  }, [value]);
+
   const isPassword = type === "password";
   const shouldSecure = isPassword && !showPassword;
 
@@ -124,7 +134,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
     <View style={[styles.container, containerStyle]}>
       {/* lable */}
       {label.trim() !== "" ? (
-        <Text testID="inputLabel" style={[styles.label, labelStyle]}>
+        <Text style={[styles.label, labelStyle]}>
           {labelIcon ? (
             <View style={styles.labelIcon}>
               <FontAwesomeIcon name={labelIcon as any} size={14} />
@@ -154,11 +164,10 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         <Pressable onPress={onPressInput} disabled={!editable}>
           <TextInput
             ref={ref || inputRefEdit}
-            testID="inputField"
             {...rest}
             placeholder={placeholder}
             editable={editable}
-            value={value}
+            value={textValue}
             multiline={multiline}
             textAlignVertical="top"
             onChangeText={handleChange}
@@ -180,7 +189,6 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
 
         {isPassword ? (
           <TouchableOpacity
-            testID="buttonShowPassword"
             style={[
               styles.rightSection,
               {
@@ -189,6 +197,8 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
               },
             ]}
             onPress={onshowPassword}
+            accessibilityLabel="togglePasswordVisibility"
+            accessibilityRole="button"
           >
             <IoniconsIcon
               name={showPassword ? "eye-off" : "eye"}
@@ -213,9 +223,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
         ) : null}
       </View>
       {error !== undefined ? (
-        <Text testID="inputError" style={styles.errorText}>
-          {error}
-        </Text>
+        <Text style={styles.errorText}>{error}</Text>
       ) : null}
     </View>
   );

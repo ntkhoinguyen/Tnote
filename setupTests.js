@@ -1,3 +1,5 @@
+import { Alert } from "react-native";
+
 // eslint-disable-next-line no-undef
 jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
@@ -9,19 +11,55 @@ jest.mock("react-native-reanimated", () =>
 );
 
 // eslint-disable-next-line no-undef
+jest.mock("expo-secure-store");
+
+// eslint-disable-next-line no-undef
+jest.spyOn(Alert, "alert");
+
+// eslint-disable-next-line no-undef
 jest.mock("@expo/vector-icons", () => {
   const View = require("react-native").View;
+  const Text = require("react-native").Text;
   return {
-    MaterialIcons: (props) => <View {...props} />,
-    FontAwesome: (props) => <View {...props} />,
-    Ionicons: (props) => <View {...props} />,
-    FontAwesome5: (props) => <View {...props} />,
-    FontAwesome6: (props) => <View {...props} />,
-    MaterialCommunityIcons: (props) => <View {...props} />,
-    AntDesign: (props) => <View {...props} />,
-    Octicons: (props) => <View {...props} />,
-    SimpleLineIcons: (props) => <View {...props} />,
-    EvilIcons: (props) => <View {...props} />,
-    Feather: (props) => <View {...props} />,
+    FontAwesome: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    FontAwesome5: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    Ionicons: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    MaterialIcons: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    MaterialCommunityIcons: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    Entypo: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    Feather: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
+    AntDesign: (props) => (
+      <View {...props}>
+        <Text>{props.name}</Text>
+      </View>
+    ),
   };
 });

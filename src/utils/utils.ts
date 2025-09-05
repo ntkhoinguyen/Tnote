@@ -4,7 +4,7 @@ import { Router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import moment from "moment";
 
-import { colors } from "@/src/themes/colors";
+import { colors, defaultColors } from "@/src/themes/colors";
 import { sizes } from "@/src/themes/sizes";
 import { defaultAvatar } from "@/src/themes/default_avatar";
 import { defaultBackground } from "@/src/themes/default_background";
@@ -257,4 +257,20 @@ export const deleteAttachments = async (uris: string[]): Promise<void> => {
       console.warn(`Failed to delete file at ${uri}:`, error);
     }
   }
+};
+
+export const getButtonStyles = (
+  type: string,
+  color: string,
+  colors: typeof defaultColors
+) => {
+  const backgroundColor = type === "fill" ? color : colors.background;
+  const textColor = type === "fill" ? colors.white : !color ? colors.primary : color;
+  const borderColor =
+    type === "outline"
+      ? color
+      : type === "text"
+      ? "transparent"
+      : backgroundColor;
+  return { backgroundColor, textColor, borderColor };
 };

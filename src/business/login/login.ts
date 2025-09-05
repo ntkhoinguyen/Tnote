@@ -28,11 +28,11 @@ export const checkLoginByAccount = (
       if (user) {
         const data = JSON.parse(user);
         if (data.username === username && data.password === password) {
-          resolve(true);
+          return resolve(true);
         }
-        resolve(false);
+        return resolve(false);
       } else {
-        resolve(false);
+        return resolve(false);
       }
     } catch (error) {
       console.log("[checkLoginByAccount][Business] ------", error);
