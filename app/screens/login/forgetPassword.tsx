@@ -1,6 +1,6 @@
 // app/create-account.tsx
 import React, { useMemo, useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useRouter } from "expo-router";
 
 import { InputField } from "@/src/components/inputField";
@@ -81,7 +81,7 @@ const ForgetPassword = () => {
         />
 
         {error ? (
-          <Text testID="createWarning" style={styles.warning}>
+          <Text style={styles.warning}>
             <FontAwesomeIcon name="warning" size={20} color={colors.red} />
             {"    "}
             {error}
@@ -93,13 +93,21 @@ const ForgetPassword = () => {
           type="fill"
           color={colors.primary}
           onPress={handleForget}
-          containerStyle={{ marginTop: sizes.margin.xxl * 4 }}
+          containerStyle={{
+            marginTop: sizes.margin.xxl * 4,
+            width: "100%",
+            paddingVertical: sizes.padding.sm,
+          }}
         />
 
         {/* Nút quay về login */}
-        <TouchableOpacity onPress={handleGoback}>
-          <Text style={styles.backToLogin}>{t("backToLogin")}</Text>
-        </TouchableOpacity>
+        <ButtonField
+          text={t("backToLogin")}
+          type="text"
+          color={colors.primary}
+          onPress={handleGoback}
+          containerStyle={{ marginTop: sizes.margin.xl }}
+        />
       </View>
     </View>
   );
@@ -111,7 +119,7 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       padding: size.padding.md,
       flex: 1,
       alignItems: "center",
-      backgroundColor: colors.backgroundMode,
+      backgroundColor: colors.background,
       paddingTop: size.heightHeader * 1.2,
     },
     backToLogin: {

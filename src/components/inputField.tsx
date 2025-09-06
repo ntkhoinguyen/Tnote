@@ -59,7 +59,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
     if (timerChangeText.current) clearTimeout(timerChangeText.current);
     timerChangeText.current = setTimeout(() => {
       onChangeText?.(text);
-    }, 2000);
+    }, 200);
     setTextValue(text);
   };
 
@@ -67,7 +67,8 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
     setIsFocus(false);
     onBlur?.();
     if (validator) {
-      setError(validator(value));
+      onChangeText?.(textValue);
+      setError(validator(textValue));
     }
   };
 
@@ -108,10 +109,11 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
 
   const handleKeyboardHide = () => {
     if (isFocus) {
+      onChangeText?.(textValue);
       if (inputRefEdit?.current?.blur) {
         inputRefEdit?.current?.blur();
       } else if (validator) {
-        setError(validator(value));
+        setError(validator(textValue));
         inputRefEdit?.current?.blur?.();
       }
     }
@@ -128,7 +130,7 @@ export const InputField: React.FC<InputFieldProps> = (props) => {
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocus, value]);
+  }, [isFocus, textValue]);
 
   return (
     <View style={[styles.container, containerStyle]}>

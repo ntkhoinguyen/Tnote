@@ -1,22 +1,45 @@
+/* eslint-disable no-undef */
 import { Alert } from "react-native";
 
-// eslint-disable-next-line no-undef
 jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
 );
 
-// eslint-disable-next-line no-undef
 jest.mock("react-native-reanimated", () =>
   require("react-native-reanimated/mock")
 );
 
-// eslint-disable-next-line no-undef
+jest.mock("expo-notifications", () => {
+  return {
+    // mock hàm chính
+    getPermissionsAsync: jest.fn(() => Promise.resolve({ status: "granted" })),
+    requestPermissionsAsync: jest.fn(() =>
+      Promise.resolve({ status: "granted" })
+    ),
+    getExpoPushTokenAsync: jest.fn(() =>
+      Promise.resolve({ data: "fake-push-token" })
+    ),
+    scheduleNotificationAsync: jest.fn(() =>
+      Promise.resolve({ identifier: "fake-id" })
+    ),
+    cancelScheduledNotificationAsync: jest.fn(() => Promise.resolve()),
+    dismissNotificationAsync: jest.fn(() => Promise.resolve()),
+    dismissAllNotificationsAsync: jest.fn(() => Promise.resolve()),
+
+    // listener mock
+    addNotificationReceivedListener: jest.fn(),
+    addNotificationResponseReceivedListener: jest.fn(),
+    removeNotificationSubscription: jest.fn(),
+
+    // event emitter mock
+    setNotificationHandler: jest.fn(),
+  };
+});
+
 jest.mock("expo-secure-store");
 
-// eslint-disable-next-line no-undef
 jest.spyOn(Alert, "alert");
 
-// eslint-disable-next-line no-undef
 jest.mock("@expo/vector-icons", () => {
   const View = require("react-native").View;
   const Text = require("react-native").Text;
