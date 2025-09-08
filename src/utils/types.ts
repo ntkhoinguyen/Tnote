@@ -535,3 +535,10 @@ export type eventType = {
 export type AppLogoType = {
   isEffect?: boolean;
 };
+
+export type SwitchButtonType = {
+  value: boolean;
+  LeftIcon: React.ComponentType<any>;
+  RightIcon: React.ComponentType<any>;
+  toggleSwitch: () => void;
+};

@@ -175,8 +175,20 @@ const TagsScreen: React.FC = () => {
     [sttGroupNames]
   );
 
+  const RenderTitle = useCallback(() => {
+    if (tagsCustom.length > 0) return null;
+    return (
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>{t("notFoundData")}</Text>
+      </View>
+    );
+  }, [tagsCustom.length, styles.titleContainer, styles.titleText, t]);
+
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background }} {...panHandlers}>
+    <View
+      style={{ flex: 1, backgroundColor: colors.background }}
+      {...panHandlers}
+    >
       <RefreshIndicator />
       <View style={styles.searchBar}>
         <SearchBar value={search} onSearch={onSearch} />
@@ -196,11 +208,16 @@ const TagsScreen: React.FC = () => {
             ListFooterComponent={itemSeparatorComponent}
             stickyHeaderIndices={stickyHeaderIndices}
             getItemType={(item: TagCustomType) => item.type || "item"}
-            style={{ borderWidth: 1, borderColor: colors.border }}
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderTopWidth: 0,
+            }}
             showsVerticalScrollIndicator={false}
           />
         </View>
       </ScrollView>
+      <RenderTitle />
       <ButtonCreate onPress={onPressCreate} />
     </View>
   );
@@ -359,6 +376,8 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       flexDirection: "row",
       backgroundColor: "#e1e6ea",
       height: 40,
+      borderColor: colors.border,
+      borderWidth: size.borderWidth.xs,
     },
     headerColumn: {
       justifyContent: "center",
@@ -417,6 +436,21 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
     },
     rowText: {
       color: colors.text,
+    },
+    titleContainer: {
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: "center",
+      alignItems: "center",
+      position: "absolute",
+    },
+    titleText: {
+      fontSize: size.fontSize.xxl * 1.2,
+      fontWeight: size.fontWeight.medium as "500",
+      color: colors.label,
+      opacity: 0.4,
     },
   });
 

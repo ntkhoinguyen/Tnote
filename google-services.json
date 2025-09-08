@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "365977948104",
+    "project_id": "tnote-992be",
+    "storage_bucket": "tnote-992be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365977948104:android:2d0984beda9787cdab3afd",
+        "android_client_info": {
+          "package_name": "com.khoinguyen2901.tnote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365977948104-736edqo4c30m4dsv7k1uvg07jee705i5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.khoinguyen2901.tnote",
+            "certificate_hash": "699bbe5ac547b3dbf69e7424879b3a6cf5bac24d"
+          }
+        },
+        {
+          "client_id": "365977948104-8oq3ur7ae4e8esn47linfu5kl8n42pbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC981H5Ja0znrKvveOAWAxdox5SBfQfMwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365977948104-8oq3ur7ae4e8esn47linfu5kl8n42pbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

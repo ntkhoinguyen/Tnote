@@ -185,7 +185,7 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) =>
       padding: size.padding.md,
       flex: 1,
       alignItems: "center",
-      backgroundColor: colors.backgroundMode,
+      backgroundColor: colors.background,
       paddingTop: size.heightHeader * 1.2,
     },
     buttonWrapper: {

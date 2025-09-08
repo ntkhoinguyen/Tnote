@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ImageBackground,
+} from "react-native";
 import { useRouter } from "expo-router";
 
 import { useAppContext } from "@/src/useHook/useAppContext";
@@ -12,9 +18,12 @@ import { KanbanColumn } from "@/src/components/main/kanban/kanbanColumn";
 import { ButtonCreate } from "@/src/components/createButton";
 import { useModalAttachment } from "@/src/useHook/useModalAttachment";
 
+const backgroundImageDUri = require("@/assets/images/imageBackgroundKanbanD.png");
+const backgroundImageLUri = require("@/assets/images/imageBackgroundKanbanL.png");
+
 export const Kanban = (props: KanbanProps) => {
   const router = useRouter();
-  const { colors, sizes, t } = useAppContext();
+  const { colors, sizes, t, mode } = useAppContext();
   const styles = useMemo(() => createStyles(colors, sizes), [colors, sizes]);
 
   const { searchText } = props;
@@ -90,23 +99,29 @@ export const Kanban = (props: KanbanProps) => {
     [tags, groups, searchText]
   );
 
+  const backgroundImageUri = useMemo(() => {
+    return mode === "dark" ? backgroundImageDUri : backgroundImageLUri;
+  }, [mode]);
+
   return (
     <View style={styles.container}>
-      <RenderPlaceholder />
-      <FlatList
-        data={groups}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        snapToInterval={kanbanColumnWidth}
-        decelerationRate="fast"
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        showsVerticalScrollIndicator={true}
-        extraData={searchText}
-      />
-      <ButtonCreate onPress={onPressCreate} />
-      {RenderModal()}
+      <ImageBackground source={backgroundImageUri} style={{ flex: 1, padding: sizes.padding.md }}>
+        <RenderPlaceholder />
+        <FlatList
+          data={groups}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={kanbanColumnWidth}
+          decelerationRate="fast"
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          showsVerticalScrollIndicator={true}
+          extraData={searchText}
+        />
+        <ButtonCreate onPress={onPressCreate} />
+        {RenderModal()}
+      </ImageBackground>
     </View>
   );
 };
@@ -115,7 +130,7 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      padding: size.padding.md,
+      // padding: size.padding.md,
       backgroundColor: colors.background,
     },
     textPlaceholder: {

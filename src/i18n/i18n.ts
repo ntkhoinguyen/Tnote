@@ -6,6 +6,7 @@ const en = {
   accountError: "Account error",
   backToLogin: "Back login",
   birthday: "Birthday",
+  canIHelpYou: "Can I help you ?",
   cannotOpenFile:
     "Can't open file, your device doesn't support this file type.",
   cannotSaveBirthday: "Can't save birthday",
@@ -110,6 +111,7 @@ const vi = {
   accountError: "Sai tài khoản",
   backToLogin: "Quay lại đăng nhập",
   birthday: "Ngày sinh",
+  canIHelpYou: "Tôi có thể giúp gì cho bạn ?",
   cannotOpenFile:
     "Không thể mở file, thiết bị của bạn không hỗ trợ mở định dạng này.",
   cannotSaveBirthday: "Không thể lưu ngày sinh",

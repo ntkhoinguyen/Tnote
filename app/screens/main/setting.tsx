@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -31,6 +31,8 @@ import {
 } from "@/src/components/icon";
 import { AttachmentPicker } from "@/src/components/attachmentPicker";
 import { useModalAttachment } from "@/src/useHook/useModalAttachment";
+
+import { SwitchButton } from "@/src/components/switchButton";
 
 const SettingsScreen: React.FC = () => {
   const { colors, sizes, t, mode, setMode, locale, setLocale } =
@@ -219,12 +221,8 @@ const SettingsScreen: React.FC = () => {
     }
   };
 
-  const onChangeVI = async () => {
-    setLocale("vi");
-  };
-
-  const onChangeEN = async () => {
-    setLocale("en");
+  const onChangeLanguage = async () => {
+    setLocale(locale === "vi" ? "en" : "vi");
   };
 
   const RenderBackground = () => {
@@ -235,6 +233,36 @@ const SettingsScreen: React.FC = () => {
       </View>
     );
   };
+
+  const Lightmode = useCallback(() => {
+    return (
+      <MaterialIconsIcon name="light-mode" color={colors.primary} size={20} />
+    );
+  }, [colors.primary]);
+
+  const Darkmode = useCallback(() => {
+    return <MaterialIconsIcon name="dark-mode" color={colors.gray} size={20} />;
+  }, [colors.gray]);
+
+  const VN = useCallback(() => {
+    return (
+      <Image
+        source={require("@/assets/images/vietnam.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+    );
+  }, [styles.logo]);
+
+  const EN = useCallback(() => {
+    return (
+      <Image
+        source={require("@/assets/images/united-kingdom.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+    );
+  }, [styles.logo]);
 
   return (
     <KeyboardAvoidingView
@@ -357,66 +385,20 @@ const SettingsScreen: React.FC = () => {
               />
             )}
           </Pressable>
-          <Pressable testID="shakeButton" onPress={onSetMode}>
-            {mode === "light" ? (
-              <MaterialIconsIcon
-                name="light-mode"
-                size={24}
-                color={colors.primary}
-              />
-            ) : (
-              <MaterialIconsIcon
-                name="dark-mode"
-                size={24}
-                color={colors.primary}
-              />
-            )}
-          </Pressable>
+          <SwitchButton
+            LeftIcon={Lightmode}
+            RightIcon={Darkmode}
+            value={mode === "light"}
+            toggleSwitch={onSetMode}
+          />
+
           <View style={styles.translateContainer}>
-            <View style={styles.translateContent}>
-              <Pressable
-                onPress={onChangeVI}
-                style={[
-                  styles.translateItemVI,
-                  locale === "vi" && styles.active,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.textTranslateItem,
-                    locale === "vi" && { color: colors.white },
-                  ]}
-                >
-                  VI
-                </Text>
-                <Image
-                  source={require("@/assets/images/vietnam.png")}
-                  style={styles.logo}
-                  resizeMode="contain"
-                />
-              </Pressable>
-              <Pressable
-                onPress={onChangeEN}
-                style={[
-                  styles.translateItemEN,
-                  locale === "en" && styles.active,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.textTranslateItem,
-                    locale === "en" && { color: colors.white },
-                  ]}
-                >
-                  EN
-                </Text>
-                <Image
-                  source={require("@/assets/images/united-kingdom.png")}
-                  style={styles.logo}
-                  resizeMode="contain"
-                />
-              </Pressable>
-            </View>
+            <SwitchButton
+              LeftIcon={VN}
+              RightIcon={EN}
+              value={locale === "vi"}
+              toggleSwitch={onChangeLanguage}
+            />
           </View>
         </View>
         {/* info */}

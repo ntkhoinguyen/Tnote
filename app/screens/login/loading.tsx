@@ -47,7 +47,7 @@ const LoadingScreen: React.FC = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: colors.backgroundLoading,
+        backgroundColor: colors.background,
         justifyContent: "center",
         alignItems: "center",
       }}

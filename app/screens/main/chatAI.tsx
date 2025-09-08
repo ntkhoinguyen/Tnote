@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   View,
   Text,
@@ -127,6 +133,15 @@ export const ChatAI = () => {
     </View>
   );
 
+  const RenderTitle = useCallback(() => {
+    if (messages.length > 0) return null;
+    return (
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>{t("canIHelpYou")}</Text>
+      </View>
+    );
+  }, [messages.length, styles.titleContainer, styles.titleText, t]);
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -145,6 +160,7 @@ export const ChatAI = () => {
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.flashListContent}
           />
+          <RenderTitle />
         </View>
         <AskComponent isOnline={isOnline} handleSend={handleSend} />
       </View>
@@ -249,6 +265,20 @@ const createStyles = (colors: typeof defaultColors, size: typeof sizes) => {
       fontSize: size.fontSize.md,
       fontWeight: size.fontWeight.medium as "500",
       padding: size.padding.sm,
+    },
+    titleContainer: {
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: "center",
+      alignItems: "center",
+      position: "absolute",
+    },
+    titleText: {
+      fontSize: size.fontSize.xxl * 1.2,
+      fontWeight: size.fontWeight.bold as "bold",
+      color: colors.label,
     },
   });
 };

@@ -14,7 +14,7 @@ import { sizes, NUM_BARS, indicatorSize } from "@/src/themes/sizes";
 import { LoadingIconType } from "../utils/types";
 
 export const LoadingIcon: React.FC<LoadingIconType> = (props) => {
-  const { size = "large", color = defaultColors.light_green } = props;
+  const { size = "large", color = defaultColors.primary } = props;
   const { colors, sizes } = useAppContext();
   const styles = useMemo(() => createStyles(colors, sizes), [colors, sizes]);
   const indiSize = indicatorSize[size];
