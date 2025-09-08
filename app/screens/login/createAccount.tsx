@@ -1,6 +1,6 @@
 // app/create-account.tsx
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Alert, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Alert, StyleSheet, Text } from "react-native";
 import { useRouter } from "expo-router";
 
 import { InputField } from "@/src/components/inputField";
@@ -154,7 +154,7 @@ const CreateAccountScreen = () => {
         />
 
         {isHaveAccount ? (
-          <Text testID="createWarning" style={styles.warning}>
+          <Text style={styles.warning}>
             <FontAwesomeIcon name="warning" size={20} color={colors.red} />
             {"   "}
             {t("createAccountWarning")}
@@ -170,9 +170,13 @@ const CreateAccountScreen = () => {
         />
 
         {/* Nút quay về login */}
-        <TouchableOpacity onPress={handleGoback}>
-          <Text style={styles.backToLogin}>{t("backToLogin")}</Text>
-        </TouchableOpacity>
+        <ButtonField
+          text={t("backToLogin")}
+          type="text"
+          color={colors.primary}
+          onPress={handleGoback}
+          containerStyle={{ marginTop: sizes.margin.xxl * 2 }}
+        />
       </View>
       <LoadingComponent />
     </View>

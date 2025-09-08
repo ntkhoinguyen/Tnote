@@ -160,7 +160,7 @@ describe("InputField - basic input behavior", () => {
     );
     const input = getByDisplayValue("init");
     fireEvent.changeText(input, "init1");
-    jest.advanceTimersByTime(1000);
+    jest.advanceTimersByTime(100);
     fireEvent.changeText(input, "init2");
     jest.advanceTimersByTime(2000);
     expect(mockOnChangeText).toHaveBeenCalledWith("init2");
