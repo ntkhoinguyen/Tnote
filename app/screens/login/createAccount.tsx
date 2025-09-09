@@ -166,7 +166,11 @@ const CreateAccountScreen = () => {
           type="fill"
           color={colors.primary}
           onPress={handleSubmit}
-          containerStyle={{ marginTop: sizes.margin.xxl * 2 }}
+          containerStyle={{
+            marginTop: sizes.margin.xxl * 2,
+            width: "100%",
+            paddingVertical: sizes.padding.sm,
+          }}
         />
 
         {/* Nút quay về login */}
@@ -175,7 +179,7 @@ const CreateAccountScreen = () => {
           type="text"
           color={colors.primary}
           onPress={handleGoback}
-          containerStyle={{ marginTop: sizes.margin.xxl * 2 }}
+          containerStyle={{ marginTop: sizes.margin.xxl }}
         />
       </View>
       <LoadingComponent />
