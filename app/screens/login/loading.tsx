@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { Alert, View } from "react-native";
 
 import { LoadingIcon } from "@/src/components/loadingIcon";
@@ -10,7 +10,8 @@ import { ensureAttachmentsDir } from "@/src/utils/utils";
 
 const LoadingScreen: React.FC = () => {
   const { setUser } = useUser();
-  const { colors } = useAppContext();
+  const { colors, t } = useAppContext();
+  const router = useRouter();
 
   const progress = useRef(0);
   const init = async () => {
@@ -28,13 +29,17 @@ const LoadingScreen: React.FC = () => {
       if (progress.current === 100) {
         router.replace("/screens/main/home");
       } else {
-        Alert.alert("Lỗi", "Không thể truy cập dữ liệu");
+        Alert.alert(t("errorCannotGetData"));
         setTimeout(() => {
           router.replace("/screens/login/login");
         }, 3000);
       }
     } catch (error) {
       console.log("[LoadingScreen] init error", error);
+      Alert.alert(t("errorCannotGetData"));
+      setTimeout(() => {
+        router.replace("/screens/login/login");
+      }, 3000);
     }
   };
 

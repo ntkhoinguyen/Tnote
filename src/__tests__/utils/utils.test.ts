@@ -1,5 +1,16 @@
+import * as FileSystem from "expo-file-system";
+
+
 import { defaultColors } from "@/src/themes/colors";
-import { getButtonStyles } from "@/src/utils/utils";
+import { getButtonStyles, ensureAttachmentsDir } from "@/src/utils/utils";
+
+jest.mock("expo-file-system", () => ({
+  documentDirectory: "mockDir/",
+  getInfoAsync: jest.fn(),
+  makeDirectoryAsync: jest.fn(),
+  writeAsStringAsync: jest.fn(),
+  EncodingType: { Base64: "base64" },
+}));
 
 describe("Test getButtonStyles function", () => {
   test("getButtonStyles function exists", () => {
@@ -59,4 +70,51 @@ describe("Test getButtonStyles function", () => {
       borderColor: defaultColors.background,
     });
   });
+});
+
+describe("Test ensureAttachmentsDir function", () => {
+  test("creates directory if not exists", async () => {
+    (FileSystem.getInfoAsync as jest.Mock).mockResolvedValueOnce({ exists: false }); // dir
+
+    // for avatar & bg exit
+    (FileSystem.getInfoAsync as jest.Mock).mockResolvedValue({ exists: true });
+    
+    await ensureAttachmentsDir();
+  
+    expect(FileSystem.makeDirectoryAsync).toHaveBeenCalledWith("mockDir/attachments/", { intermediates: true });
+  });
+
+  test("writes coverBackground.png if not exists", async () => {
+    // dir exists
+    (FileSystem.getInfoAsync as jest.Mock)
+      .mockResolvedValueOnce({ exists: true }) // dir
+      .mockResolvedValueOnce({ exists: false }) // coverBackground
+      .mockResolvedValueOnce({ exists: true }) // avatar
+      .mockResolvedValueOnce({ exists: false }) // coverBackground
+  
+    await ensureAttachmentsDir();
+  
+    expect(FileSystem.writeAsStringAsync).toHaveBeenCalledWith(
+      "mockDir/attachments/coverBackground.png",
+      expect.any(String),
+      { encoding: "base64" }
+    );
+  });
+
+  test("writes avatar.png if not exists", async () => {
+    // dir exists
+    (FileSystem.getInfoAsync as jest.Mock)
+      .mockResolvedValueOnce({ exists: true }) // dir
+      .mockResolvedValueOnce({ exists: true }) // coverBackground
+      .mockResolvedValueOnce({ exists: false }) // avatar
+      .mockResolvedValueOnce({ exists: false }) // coverBackground
+  
+    await ensureAttachmentsDir();
+  
+    expect(FileSystem.writeAsStringAsync).toHaveBeenCalledWith(
+      "mockDir/attachments/avatar.png",
+      expect.any(String),
+      { encoding: "base64" }
+    );
+  })
 });
